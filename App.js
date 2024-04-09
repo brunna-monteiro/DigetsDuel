@@ -3,15 +3,30 @@ import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
 import StartGameScreen from './screens/StartGameScreen'
 import GameScreen from './screens/GameScreen'
+import GameOverScreen from './screens/GameOverScreen'
 import Palette from './constants/palette'
 
 export default function App() {
   const [userNumber, setUserNumber] = useState()
+  const [gameIsOver, setGameIsOver] = useState(true)
 
-  let screen = <StartGameScreen onConfirmNumber={setUserNumber}/>
+  const userNumberHandler = (pickedNumber) => {
+    setUserNumber(pickedNumber)
+    setGameIsOver(false)
+  }
+
+  const gameOverHandler =  () => {
+    setGameIsOver(true)
+  }
+
+  let screen = <StartGameScreen onConfirmNumber={userNumberHandler}/>
 
   if (userNumber !== undefined) {
-    screen = <GameScreen userNumber={userNumber}/>
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler}/>
+  }
+
+  if (gameIsOver && userNumber) {
+    screen = <GameOverScreen />
   }
 
   return (
