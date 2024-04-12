@@ -2,6 +2,8 @@ import { useState } from "react"
 import { TextInput, View, Alert, StyleSheet } from "react-native"
 import PrimaryButton from "../components/ui/PrimaryButton"
 import Palette from "../constants/palette"
+import Title from "../components/ui/Title"
+import BodyText from "../components/ui/BodyText"
 
 const StartGameScreen = ({onConfirmNumber}) => {
   const [enteredNumber, setEnteredNumber] = useState('')
@@ -25,19 +27,21 @@ const StartGameScreen = ({onConfirmNumber}) => {
   }
 
   return (
-    <View style={styles.inputContainer}>
-      <TextInput
-        style={styles.numberInput} 
-        maxLength={2} 
-        keyboardType="number-pad"
-        onChangeText={setEnteredNumber}
-        value={enteredNumber}/>
-      <View style={styles.buttonsContainer}>
-        <View style={styles.singleButtonContainer}>
-          <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-        </View>
-        <View style={styles.singleButtonContainer}>
-          <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+    <View style={styles.superRoot}>
+      <Title>Digets Duel</Title>
+      <View style={styles.rootContainer}>
+        <View style={styles.inputContainer}>
+        <BodyText>Choose a number from 1 to 99</BodyText>
+          <TextInput
+            style={styles.numberInput} 
+            maxLength={2} 
+            keyboardType="number-pad"
+            onChangeText={setEnteredNumber}
+            value={enteredNumber}/>
+          <View style={styles.buttonsContainer}>
+              <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+              <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+          </View>
         </View>
       </View>
     </View>
@@ -47,12 +51,22 @@ const StartGameScreen = ({onConfirmNumber}) => {
 export default StartGameScreen
 
 const styles = StyleSheet.create({
-  inputContainer: {
-    // justifyContent: 'center',
+
+  superRoot: {
+    flex: 1,
+    marginTop: '10%',
+    padding: 24,
+  },
+
+  rootContainer: {
+    marginTop: '20%',
     alignItems: 'center',
-    // marginTop: 100,
-    marginHorizontal: 24,
-    padding: 32,
+    justifyContent: 'center',
+  },
+  
+  inputContainer: {
+    alignItems: 'center',
+    padding: 48,
     backgroundColor: Palette.primary600,
     borderRadius: 8,
     elevation: 4,
@@ -65,22 +79,19 @@ const styles = StyleSheet.create({
   },
 
   numberInput: {
-    height: 52,
-    width: 52,
-    fontSize: 32,
+    height: 56,
+    width: 64,
+    fontSize: 40,
     fontWeight:'bold',
     borderBottomColor: Palette.secondary200,
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     color: Palette.secondary200,
     marginVertical: 8,
     textAlign: 'center',
+    marginBottom: '10%'
   },
 
   buttonsContainer: {
     flexDirection: 'row',
-  },
-
-  singleButtonContainer: {
-    flex: 1,
   },
 })

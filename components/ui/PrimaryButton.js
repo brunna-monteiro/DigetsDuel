@@ -19,24 +19,25 @@ export default PrimaryButton
 
 const styles = StyleSheet.create({
     buttonOuterContainer: {
-        margin: 4,
-        marginTop: 32,
-        borderRadius: 8,
         overflow: 'hidden',
+        margin: 8,
     },
 
     buttonInnerContainer: {
         backgroundColor: Palette.primary500,
-        paddingVertical: 8,
-        paddingHorizontal: 16,
-        elevation: 2,
+        paddingVertical: 24,
+        paddingHorizontal: 32,
+        elevation: 4,
         alignItems: 'center',
+        borderWidth: 1,
+        borderColor: Palette.primary600,
+        borderRadius: 8,
     },
 
     buttonText: {
+        fontSize: 16,
+        fontWeight: 'bold',
         color: Palette.secondary50,
-        // textAlign: 'center',
-
     },
 // Ripple effect on iOS is different setted:
     // pressed: {

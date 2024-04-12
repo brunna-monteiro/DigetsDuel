@@ -1,8 +1,10 @@
-import { Text, View, StyleSheet, Alert } from "react-native"
+import { View, StyleSheet, Alert } from "react-native"
 import Title from "../components/ui/Title"
 import { useState, useEffect } from "react"
 import NumberContainer from "../components/game/NumberContainer"
 import PrimaryButton from "../components/ui/PrimaryButton"
+import BodyText from "../components/ui/BodyText"
+import { FontAwesome } from "@expo/vector-icons"
 
 const randomNumber = (min, max, exclude) => {
   const randNum = Math.floor(Math.random() * (max - min) + min)
@@ -18,7 +20,7 @@ let minBoundary = 1
 let maxBoundary = 100
 
 const GameScreen = ({userNumber, onGameOver}) => {
-  const initialGuess = randomNumber(minBoundary, maxBoundary, userNumber)
+  const initialGuess = randomNumber(1, 100, userNumber)
   const [currentGuess, setCurrentGuess] = useState(initialGuess)
 
   useEffect(() => {
@@ -50,13 +52,16 @@ const GameScreen = ({userNumber, onGameOver}) => {
       <Title>Opponent's Guess</Title>
        <NumberContainer>{currentGuess}</NumberContainer>
       <View>
-        <Text>Greater or Lower?</Text>
-        <View style={styles.buttom}>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>-</PrimaryButton>
-          <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>+</PrimaryButton>
+        <BodyText>Is your number greater or lower?</BodyText>
+        <View style={styles.button}>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+            <FontAwesome name="minus"/>
+          </PrimaryButton>
+          <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+            <FontAwesome name="plus"/>
+          </PrimaryButton>
         </View>
       </View>
-      <View></View>
     </View>
   )
 }
@@ -64,13 +69,13 @@ const GameScreen = ({userNumber, onGameOver}) => {
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    padding: 24,
+    padding: 48,
+    justifyContent: 'space-evenly',
   },
 
-  buttom: {
+  button: {
     flexDirection: 'row',
-    justifyContent: 'center',
-    
+    justifyContent: 'space-around',
   },
 })
 
