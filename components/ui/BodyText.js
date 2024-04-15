@@ -11,10 +11,11 @@ export default BodyText
 
 const styles = StyleSheet.create({
     text: {
-        fontSize: 16,
-        fontWeight: '700',
-        color: Palette.secondary200,
-        margin: '5%',
-        textAlign: 'center',
+      fontFamily: 'open-sans',
+      fontSize: 16,
+      fontWeight: '700',
+      color: Palette.secondary200,
+      margin: '5%',
+      textAlign: 'center',
     },
 })

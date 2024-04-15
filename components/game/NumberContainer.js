@@ -23,9 +23,9 @@ const styles = StyleSheet.create({
     },
 
     numberText: {
-        color: Palette.secondary200,
-        fontSize: 56,
-        fontWeight: 'bold',
+      fontFamily: 'open-sans-bold',
+      color: Palette.secondary200,
+      fontSize: 56,
 
     },
 })

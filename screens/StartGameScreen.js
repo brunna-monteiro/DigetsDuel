@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
   
   inputContainer: {
     alignItems: 'center',
-    padding: 48,
+    padding: 40,
     backgroundColor: Palette.primary600,
     borderRadius: 8,
     elevation: 4,
@@ -81,8 +81,8 @@ const styles = StyleSheet.create({
   numberInput: {
     height: 56,
     width: 64,
+    fontFamily: 'open-sans-bold',
     fontSize: 40,
-    fontWeight:'bold',
     borderBottomColor: Palette.secondary200,
     borderBottomWidth: 1,
     color: Palette.secondary200,
