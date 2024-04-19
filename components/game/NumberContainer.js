@@ -13,13 +13,13 @@ export default NumberContainer
 
 const styles = StyleSheet.create({
     container: {
-        borderWidth: 1,
-        borderColor: Palette.primary600,
-        backgroundColor: Palette.primary500,
-        padding: 24,
-        borderRadius: 8,
-        alignItems: 'center',
-        justifyContent: 'center',
+        // borderWidth: 1,
+        // borderColor: Palette.primary600,
+        // backgroundColor: Palette.primary500,
+        // padding: 24,
+        // borderRadius: 8,
+        // alignItems: 'center',
+        // justifyContent: 'center',
     },
 
     numberText: {

@@ -1,7 +1,7 @@
 const Palette = {
     primary400: '#0998a4',
     primary500: '#1d6c73',
-    primary600: '#044247',
+    primary600: '#065359ee',
     primary800: '#00272a',
 
     secondary50: '#faefdd',

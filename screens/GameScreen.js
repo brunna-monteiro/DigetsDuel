@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import NumberContainer from "../components/game/NumberContainer"
 import PrimaryButton from "../components/ui/PrimaryButton"
 import BodyText from "../components/ui/BodyText"
+import Palette from "../constants/palette"
 import { FontAwesome } from "@expo/vector-icons"
 
 const randomNumber = (min, max, exclude) => {
@@ -22,6 +23,7 @@ let maxBoundary = 100
 const GameScreen = ({userNumber, onGameOver}) => {
   const initialGuess = randomNumber(1, 100, userNumber)
   const [currentGuess, setCurrentGuess] = useState(initialGuess)
+  const [guessRounds, setGuessRounds] = useState([initialGuess])
 
   useEffect(() => {
     if (currentGuess === userNumber) {
@@ -49,14 +51,16 @@ const GameScreen = ({userNumber, onGameOver}) => {
     }
     console.log(minBoundary, maxBoundary)
     const newGuess = randomNumber(minBoundary, maxBoundary, currentGuess)
+
     setCurrentGuess(newGuess)
+    setGuessRounds(prevGuessRounds => [newGuess, ...prevGuessRounds])
   }
 
   return (
     <View style={styles.screen}>
       <Title>Opponent's Guess</Title>
+      <View style={styles.middleContainer}>
        <NumberContainer>{currentGuess}</NumberContainer>
-      <View>
         <BodyText>Is your number greater or lower?</BodyText>
         <View style={styles.button}>
           <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
@@ -65,6 +69,12 @@ const GameScreen = ({userNumber, onGameOver}) => {
           <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
             <FontAwesome name="plus"/>
           </PrimaryButton>
+        </View>
+      </View>
+      <View style={styles.guessContainer}>
+        <BodyText>Your phone guesses</BodyText>
+        <View style={styles.guessRound}>
+        {guessRounds.map(guessRound => <BodyText key={guessRound}>{guessRound}</BodyText>)}
         </View>
       </View>
     </View>
@@ -80,8 +90,33 @@ const styles = StyleSheet.create({
 
   button: {
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    // justifyContent: 'space-around',
   },
+
+  middleContainer: {
+    borderWidth: 1,
+    borderColor: Palette.primary800,
+    backgroundColor: Palette.primary600,
+    padding: 24,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  guessContainer: {
+    flexDirection: 'column',
+    backgroundColor: Palette.primary600,
+    borderWidth: 1,
+    borderColor: Palette.primary800,
+    borderRadius: 8,
+    alignItems: 'center',
+    overflow: 'hidden'
+  },
+
+  guessRound: {
+    flexDirection: 'row',
+    padding: 12,
+  }
 })
 
 export default GameScreen
