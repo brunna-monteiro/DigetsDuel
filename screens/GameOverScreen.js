@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   },
 
   highlightText: {
-    color: Palette.primary500,
+    color: Palette.secondary50,
     fontWeight: 'bold',
   }
 })

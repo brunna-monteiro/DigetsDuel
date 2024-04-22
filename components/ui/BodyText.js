@@ -12,7 +12,7 @@ export default BodyText
 const styles = StyleSheet.create({
     text: {
       fontFamily: 'open-sans',
-      fontSize: 16,
+      fontSize: 20,
       fontWeight: '700',
       color: Palette.secondary200,
       margin: '5%',

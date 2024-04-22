@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { TextInput, View, Alert, StyleSheet } from "react-native"
+import { TextInput, View, Alert, StyleSheet, Text } from "react-native"
 import PrimaryButton from "../components/ui/PrimaryButton"
 import Palette from "../constants/palette"
 import Title from "../components/ui/Title"
@@ -31,7 +31,8 @@ const StartGameScreen = ({onConfirmNumber}) => {
       <Title>Digets Duel</Title>
       <View style={styles.rootContainer}>
         <View style={styles.inputContainer}>
-        <BodyText>Choose a number from 1 to 99</BodyText>
+        <BodyText>Enter a number</BodyText>
+        <Text style={styles.sideNote}>from 1 to 99</Text>
           <TextInput
             style={styles.numberInput} 
             maxLength={2} 
@@ -89,6 +90,10 @@ const styles = StyleSheet.create({
     marginVertical: 8,
     textAlign: 'center',
     marginBottom: '10%'
+  },
+
+  sideNote: {
+    color: Palette.secondary200,
   },
 
   buttonsContainer: {

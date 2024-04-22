@@ -1,9 +1,8 @@
 import { useEffect, useState } from 'react'
 import { StyleSheet, ImageBackground, SafeAreaView } from 'react-native'
 import { LinearGradient } from 'expo-linear-gradient'
-import { loadAsync, useFonts } from 'expo-font'
+import { useFonts } from 'expo-font'
 import SplashScreen from 'expo-splash-screen'
-import AppLoading from 'expo-app-loading'
 
 import StartGameScreen from './screens/StartGameScreen'
 import GameScreen from './screens/GameScreen'
@@ -41,8 +40,9 @@ export default function App() {
     setGameIsOver(false)
   }
 
-  const gameOverHandler =  () => {
+  const gameOverHandler =  (numberOfRounds) => {
     setGameIsOver(true)
+    setGuessRounds(numberOfRounds)
   }
 
   const startNewGameHandler = () => {

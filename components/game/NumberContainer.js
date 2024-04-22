@@ -1,4 +1,4 @@
-import { View, Text, StyleSheet } from "react-native"
+import { View, Text, StyleSheet, Dimensions } from "react-native"
 import Palette from "../../constants/palette"
 
 const NumberContainer = ({children}) => {
@@ -11,8 +11,12 @@ const NumberContainer = ({children}) => {
 
 export default NumberContainer
 
+const deviceWidth = Dimensions.get('window').width
+
 const styles = StyleSheet.create({
     container: {
+      padding: deviceWidth < 340 ? 12 : 24,
+      margin: deviceWidth < 340 ? 12 : 24,
         // borderWidth: 1,
         // borderColor: Palette.primary600,
         // backgroundColor: Palette.primary500,
