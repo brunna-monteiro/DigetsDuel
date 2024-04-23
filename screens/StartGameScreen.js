@@ -1,12 +1,15 @@
 import { useState } from "react"
-import { TextInput, View, Alert, StyleSheet, Text } from "react-native"
+import { TextInput, View, Alert, StyleSheet, Text, useWindowDimensions } from "react-native"
 import PrimaryButton from "../components/ui/PrimaryButton"
 import Palette from "../constants/palette"
 import Title from "../components/ui/Title"
 import BodyText from "../components/ui/BodyText"
+import CardContainer from "../components/ui/CardContainer"
 
 const StartGameScreen = ({onConfirmNumber}) => {
   const [enteredNumber, setEnteredNumber] = useState('')
+
+  const { width, height } = useWindowDimensions()
 
   function resetInputHandler() {
     setEnteredNumber('')
@@ -26,24 +29,30 @@ const StartGameScreen = ({onConfirmNumber}) => {
     onConfirmNumber(chosenNumber)
   }
 
+  const marginTop = height < 400 ? 0 : '10%'
+  const padding = height < 400 ? 0 : 24
+  const marginBottom = height < 400 ? 10 : '10%'
+  const marginTopDistance = height < 400 ? 0 :'20%'
+
+
   return (
-    <View style={styles.superRoot}>
+    <View style={[styles.superRoot, {marginTop: marginTop}, {padding: padding}]}>
       <Title>Digets Duel</Title>
-      <View style={styles.rootContainer}>
-        <View style={styles.inputContainer}>
+      <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
+        <CardContainer>
         <BodyText>Enter a number</BodyText>
         <Text style={styles.sideNote}>from 1 to 99</Text>
           <TextInput
-            style={styles.numberInput} 
+            style={[styles.numberInput, {marginBottom: marginBottom}]} 
             maxLength={2} 
             keyboardType="number-pad"
             onChangeText={setEnteredNumber}
             value={enteredNumber}/>
           <View style={styles.buttonsContainer}>
-              <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-              <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
           </View>
-        </View>
+        </CardContainer>
       </View>
     </View>
   )
@@ -55,41 +64,23 @@ const styles = StyleSheet.create({
 
   superRoot: {
     flex: 1,
-    marginTop: '10%',
-    padding: 24,
   },
 
   rootContainer: {
-    marginTop: '20%',
     alignItems: 'center',
     justifyContent: 'center',
   },
-  
-  inputContainer: {
-    alignItems: 'center',
-    padding: 40,
-    backgroundColor: Palette.primary600,
-    borderRadius: 8,
-    elevation: 4,
-    // elevation works only on Android
-    // To set iOS shadow use the group below:
-    shadowColor: Palette.primary800,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 6,
-    shadowOpacity: 0.25,
-  },
 
   numberInput: {
-    height: 56,
+    // height: 56,
     width: 64,
     fontFamily: 'open-sans-bold',
     fontSize: 40,
+    color: Palette.secondary200,
     borderBottomColor: Palette.secondary200,
     borderBottomWidth: 1,
-    color: Palette.secondary200,
     marginVertical: 8,
     textAlign: 'center',
-    marginBottom: '10%'
   },
 
   sideNote: {
