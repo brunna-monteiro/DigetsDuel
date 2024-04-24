@@ -3,7 +3,7 @@ import Palette from "../../constants/palette"
 
 const NumberContainer = ({children}) => {
   const {width, height} = useWindowDimensions()
-  const fontSize = width < 340 ? 48 : 56
+  const fontSize = width < 380 ? 48 : 64
   return (
     <View>
         <Text style={[styles.numberText, {fontSize: fontSize}]}>{children}</Text>

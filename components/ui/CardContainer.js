@@ -1,4 +1,4 @@
-import { View, StyleSheet, useWindowDimensions } from "react-native"
+import { View, StyleSheet, useWindowDimensions, Platform } from "react-native"
 import Palette from "../../constants/palette"
 
 
@@ -31,7 +31,8 @@ const styles = StyleSheet.create({
         elevation: 4,
         // elevation works only on Android
         // To set iOS shadow use the group below:
-        shadowColor: Palette.primary800,
+
+        shadowColor: Platform.select({ ios: Palette.primary800, android: black}),
         shadowOffset: { width: 0, height: 2 },
         shadowRadius: 6,
         shadowOpacity: 0.25,

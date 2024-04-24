@@ -61,12 +61,45 @@ const GameScreen = ({userNumber, onGameOver}) => {
   const guessRoundLength = guessRounds.length
   const justifyContent = height < 400 ? 'center' : 'space-evenly'
   const padding = height < 400 ? 0 : 24
+  let content = (
+  <>
+  <CardContainer>
+    <NumberContainer>{currentGuess}</NumberContainer>
+    <BodyText>higher or lower?</BodyText>
+    <View style={styles.button}>
+      <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
+        <FontAwesome name="minus"/>
+      </PrimaryButton>
+      <PrimaryButton onPress={nextGuessHandler.bind(this, 'greater')}>
+        <FontAwesome name="plus"/>
+      </PrimaryButton>
+    </View>
+  </CardContainer>
+  <CardContainer style={styles.guessContainer}>
+    <BodyText>Guesses</BodyText>
+    {/* <View style={styles.guessRound}>
+    {guessRounds.map(guessRound => <BodyText key={guessRound}>{guessRound}</BodyText>)}
+    </View> */}
+    <View style={styles.guessList}>
+      <FlatList data={guessRounds} 
+      renderItem={(itemData) => (
+      <GuessItem roundNumber={guessRoundLength - itemData.index}
+      guess={itemData.item}
+      />
+    )}
+      keyExtractor={(item) => item}/>
+    </View>
+  </CardContainer>
+  </>
+  )
 
-  return (
-    <View style={[styles.screen, {justifyContent: justifyContent}, {padding: padding}]}>
-      <Title>Opponent's Guess</Title>
-      <CardContainer style={styles.middleContainer}>
-       <NumberContainer>{currentGuess}</NumberContainer>
+  if (width > 480) {
+    content = (
+    <>
+    <View style={styles.landscape}>
+      <CardContainer style={styles.numberContainer}>
+        <BodyText>Current Guess</BodyText>
+        <NumberContainer>{currentGuess}</NumberContainer>
         <BodyText>higher or lower?</BodyText>
         <View style={styles.button}>
           <PrimaryButton onPress={nextGuessHandler.bind(this, 'lower')}>
@@ -79,19 +112,24 @@ const GameScreen = ({userNumber, onGameOver}) => {
       </CardContainer>
       <CardContainer style={styles.guessContainer}>
         <BodyText>Guesses</BodyText>
-        {/* <View style={styles.guessRound}>
-       {guessRounds.map(guessRound => <BodyText key={guessRound}>{guessRound}</BodyText>)}
-        </View> */}
         <View style={styles.guessList}>
           <FlatList data={guessRounds} 
           renderItem={(itemData) => (
-          <GuessItem roundNumber={guessRoundLength - itemData.index}
-          guess={itemData.item}
-          />
-        )}
+            <GuessItem roundNumber={guessRoundLength - itemData.index}
+            guess={itemData.item}/>
+          )}
           keyExtractor={(item) => item}/>
         </View>
       </CardContainer>
+    </View>
+    </>
+    )
+  }
+
+  return (
+    <View style={[styles.screen, {justifyContent: justifyContent}, {padding: padding}]}>
+      <Title>Opponent's Guess</Title>
+       {content}
     </View>
   )
 }
@@ -109,21 +147,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
   },
 
-  middleContainer: {
+  landscape: {
+    flex: 1,
+    flexDirection: 'row',
+    maxWidth: '85%',
+    marginBottom: 20,
+  },
 
+  numberContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    overflow: 'hidden',
+    justifyContent: 'space-evenly',
+    marginRight: 10,
   },
 
   guessContainer: {
     flex: 1,
     flexDirection: 'column',
     overflow: 'hidden',
-
-    // marginTop: 24,
-    // backgroundColor: Palette.primary600,
-    // borderWidth: 1,
-    // borderColor: Palette.primary800,
-    // borderRadius: 8,
-    // alignItems: 'center',
   },
   
   guessList: {

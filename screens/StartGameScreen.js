@@ -1,5 +1,6 @@
 import { useState } from "react"
-import { TextInput, View, Alert, StyleSheet, Text, useWindowDimensions } from "react-native"
+import { TextInput, View, Alert, StyleSheet, 
+  Text, useWindowDimensions, KeyboardAvoidingView, ScrollView } from "react-native"
 import PrimaryButton from "../components/ui/PrimaryButton"
 import Palette from "../constants/palette"
 import Title from "../components/ui/Title"
@@ -31,60 +32,65 @@ const StartGameScreen = ({onConfirmNumber}) => {
 
   const marginTop = height < 400 ? 0 : '10%'
   const padding = height < 400 ? 0 : 24
-  const marginBottom = height < 400 ? 10 : '10%'
+  const marginBottom = height < 400 ? 20 : '10%'
   const marginTopDistance = height < 400 ? 0 :'20%'
 
 
   return (
-    <View style={[styles.superRoot, {marginTop: marginTop}, {padding: padding}]}>
-      <Title>Digets Duel</Title>
-      <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
-        <CardContainer>
-        <BodyText>Enter a number</BodyText>
-        <Text style={styles.sideNote}>from 1 to 99</Text>
-          <TextInput
-            style={[styles.numberInput, {marginBottom: marginBottom}]} 
-            maxLength={2} 
-            keyboardType="number-pad"
-            onChangeText={setEnteredNumber}
-            value={enteredNumber}/>
-          <View style={styles.buttonsContainer}>
-            <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
-            <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+    <ScrollView style={styles.superRoot}>
+      {/* KeybordAvoidingView allows move the screen away from the keybord,
+      which is essencial for iOs and it's wrap in a scrollView because the position behavior
+      otherwise, the screen would be broken. */}
+      <KeyboardAvoidingView style={styles.superRoot} behavior="position">
+        <View style={[styles.superRoot, {marginTop: marginTop}, {padding: padding}]}>
+          <Title>Digets Duel</Title>
+          <View style={[styles.rootContainer, {marginTop: marginTopDistance}]}>
+            <CardContainer>
+            <BodyText>Enter a number</BodyText>
+            <Text style={styles.sideNote}>from 1 to 99</Text>
+              <TextInput
+                style={[styles.numberInput, {marginBottom: marginBottom}]} 
+                maxLength={2} 
+                keyboardType="number-pad"
+                onChangeText={setEnteredNumber}
+                value={enteredNumber}/>
+              <View style={styles.buttonsContainer}>
+                <PrimaryButton onPress={resetInputHandler}>Reset</PrimaryButton>
+                <PrimaryButton onPress={confirmInputHandler}>Confirm</PrimaryButton>
+              </View>
+            </CardContainer>
           </View>
-        </CardContainer>
-      </View>
-    </View>
+        </View>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 
 export default StartGameScreen
 
 const styles = StyleSheet.create({
-
+  
   superRoot: {
     flex: 1,
   },
-
+  
   rootContainer: {
     alignItems: 'center',
     justifyContent: 'center',
   },
 
+  sideNote: {
+    color: Palette.secondary200,
+  },
+  
   numberInput: {
-    // height: 56,
     width: 64,
     fontFamily: 'open-sans-bold',
     fontSize: 40,
     color: Palette.secondary200,
     borderBottomColor: Palette.secondary200,
-    borderBottomWidth: 1,
-    marginVertical: 8,
+    borderBottomWidth: 2,
     textAlign: 'center',
-  },
-
-  sideNote: {
-    color: Palette.secondary200,
   },
 
   buttonsContainer: {

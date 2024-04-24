@@ -1,13 +1,13 @@
-import { View, Image, StyleSheet, Dimensions } from "react-native"
+import { View, Image, StyleSheet, useWindowDimensions } from "react-native"
 import Palette from "../constants/palette"
 import Title from "../components/ui/Title"
 import BodyText from "../components/ui/BodyText"
 import PrimaryButton from "../components/ui/PrimaryButton"
 
 const GameOverScreen = ({roundsNumber, userNumber, onStartNewGame}) => {
-  return (
-    <View style={styles.rootContainer}>
-      <Title>GAME OVER</Title> 
+  const {height, width} = useWindowDimensions()
+  let content = (
+    <>
       <View style={styles.imageContainer}>
         <Image style={styles.image} source={require('../assets/images/game-over.jpg')}/>
       </View>
@@ -17,31 +17,67 @@ const GameOverScreen = ({roundsNumber, userNumber, onStartNewGame}) => {
         <BodyText style={styles.highlightText}> {userNumber}</BodyText>.
       </BodyText>
       <PrimaryButton onPress={onStartNewGame}>New Game</PrimaryButton>
+    </>
+  )
+
+  if (width > 480) {
+    content = (
+    <>
+    <View style={styles.landscape}>
+      <View style={styles.imageContainer}>
+        <Image style={styles.image} source={require('../assets/images/game-over.jpg')}/>
+      </View>
+      <View style={styles.newGameContainer}>
+        <BodyText>
+          Your phone needed
+          <BodyText style={styles.highlightText}> {roundsNumber}</BodyText> rounds to guess the number
+          <BodyText style={styles.highlightText}> {userNumber}</BodyText>.
+        </BodyText>
+        <View style={styles.buttonContainer}>
+          <PrimaryButton onPress={onStartNewGame}>New Game</PrimaryButton>
+        </View>
+      </View>
+    </View>
+    </>
+    )
+  }
+
+  return (
+    <View style={styles.rootContainer}>
+      <Title>GAME OVER</Title>
+      <View>
+        {content}
+      </View>
     </View>
   )
 }
 
 export default GameOverScreen
 
-const deviceWidth = Dimensions.get('window').width
-
 const styles = StyleSheet.create({
   rootContainer: {
     flex: 1,
-    marginTop: '10%',
-    padding: 32,
     alignItems: 'center',
     justifyContent: 'center',
   },
 
+  landscape: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    maxHeight: '80%',
+    marginTop: 10
+  },
+
   imageContainer: {
-    width: deviceWidth < 340 ? 250 : 300,
-    height: deviceWidth < 340 ? 250 : 300,
+    width: 250,
+    height: 250,
+    alignSelf: 'center',
     borderRadius: 75,
     borderWidth: 2,
     borderColor: Palette.primary800,
     overflow: 'hidden',
-    margin: 24,
   },
 
   image: {
@@ -52,5 +88,13 @@ const styles = StyleSheet.create({
   highlightText: {
     color: Palette.secondary50,
     fontWeight: 'bold',
+  },
+
+  newGameContainer: {
+    maxWidth: '50%',
+  },
+
+  buttonContainer: {
+    marginTop: 20,
   }
 })

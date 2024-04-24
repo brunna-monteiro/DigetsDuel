@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
       
       // borderBottomWidth: 2,
       // borderColor: Palette.secondary200,
-      padding: 12,
+      paddingTop: 12
     }
   })
   
